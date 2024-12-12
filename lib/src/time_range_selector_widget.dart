@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 
 class TimeRangeSelectorWidget extends StatefulWidget {
   const TimeRangeSelectorWidget({
@@ -85,8 +85,7 @@ class TimeRangeSelectorWidget extends StatefulWidget {
   final double? stockWidth;
 
   @override
-  State<TimeRangeSelectorWidget> createState() =>
-      _TimeRangeSelectorWidgetState();
+  State<TimeRangeSelectorWidget> createState() => _TimeRangeSelectorWidgetState();
 }
 
 class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
@@ -100,8 +99,7 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
   void initState() {
     super.initState();
 
-    if (widget.initialTime < widget.minTime ||
-        widget.initialTime > widget.maxTime) {
+    if (widget.initialTime < widget.minTime || widget.initialTime > widget.maxTime) {
       throw Exception("Current time must be in time range (Max and min time)");
     }
 
@@ -115,10 +113,8 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
 
   setValue() {
     stockWidth = widget.stockWidth ?? Theme.of(context).buttonTheme.height;
-    handlePadding =
-        widget.handlePadding ?? Theme.of(context).buttonTheme.height / 3;
-    positionalDotSize =
-        widget.positionalDotSize ?? Theme.of(context).buttonTheme.height / 8;
+    handlePadding = widget.handlePadding ?? Theme.of(context).buttonTheme.height / 3;
+    positionalDotSize = widget.positionalDotSize ?? Theme.of(context).buttonTheme.height / 8;
   }
 
   Widget drawBox({Widget? child, bool? isHandle, int? index}) {
@@ -129,9 +125,7 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
     if (widget.positionalDotColor != null) {
       dotColor = widget.positionalDotColor!;
     } else if (index != null) {
-      dotColor = currentPosition < index
-          ? Theme.of(context).colorScheme.onSurface
-          : Theme.of(context).colorScheme.onPrimary;
+      dotColor = currentPosition < index ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onPrimary;
     }
 
     return Container(
@@ -149,32 +143,16 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: widget.shadowColorLight ??
-                blendColors(
-                        baseColor: Colors.transparent,
-                        blendColor: Colors.white,
-                        blendMode: BlendModeType.screen)
-                    .withOpacity(0.5),
+            color: widget.shadowColorLight ?? blendColors(baseColor: Colors.transparent, blendColor: Colors.white, blendMode: BlendModeType.screen).withOpacity(0.5),
             blurRadius: s,
             offset: Offset(-s, -s),
-            inset: isHandle != null
-                ? !isHandle
-                : child ==
-                    null, // This line should be comment if you don't want to use "flutter_inset_box_shadow" package
+            inset: isHandle != null ? !isHandle : child == null, // This line should be comment if you don't want to use "flutter_inset_shadow" package
           ),
           BoxShadow(
-            color: widget.shadowColorDark ??
-                blendColors(
-                        baseColor: Colors.transparent,
-                        blendColor: Colors.black,
-                        blendMode: BlendModeType.multiply)
-                    .withOpacity(0.5),
+            color: widget.shadowColorDark ?? blendColors(baseColor: Colors.transparent, blendColor: Colors.black, blendMode: BlendModeType.multiply).withOpacity(0.5),
             blurRadius: s,
             offset: Offset(s, s),
-            inset: isHandle != null
-                ? !isHandle
-                : child ==
-                    null, // This line should be comment if you don't want to use "flutter_inset_box_shadow" package
+            inset: isHandle != null ? !isHandle : child == null, // This line should be comment if you don't want to use "flutter_inset_shadow" package
           ),
         ],
       ),
@@ -182,14 +160,8 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
     );
   }
 
-  Widget dot(
-      double centerX, double centerY, double radius, int index, bool isHandle) {
-    Offset offset = _countOffset(
-        centerX: centerX,
-        centerY: centerY,
-        radius: radius,
-        currentPosition: index,
-        totalPosition: totalPosition);
+  Widget dot(double centerX, double centerY, double radius, int index, bool isHandle) {
+    Offset offset = _countOffset(centerX: centerX, centerY: centerY, radius: radius, currentPosition: index, totalPosition: totalPosition);
 
     Widget w;
 
@@ -213,8 +185,7 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
       //   w = (widget.positionalDotBuilder!(index, offset)) ?? const SizedBox();
       // }
 
-      if (widget.positionalDotBuilder != null &&
-          widget.positionalDotBuilder!(index, offset) != null) {
+      if (widget.positionalDotBuilder != null && widget.positionalDotBuilder!(index, offset) != null) {
         w = widget.positionalDotBuilder!(index, offset)!;
       }
     }
@@ -265,13 +236,11 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
         builder: (context, box) {
           double centerX = box.maxWidth / 2;
           double centerY = box.maxHeight / 2;
-          final radius = min((box.maxHeight / 2) - (stockWidth / 2),
-              (box.maxWidth / 2) - (stockWidth / 2));
+          final radius = min((box.maxHeight / 2) - (stockWidth / 2), (box.maxWidth / 2) - (stockWidth / 2));
 
           return Container(
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle, color: widget.backgroundColor),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: widget.backgroundColor),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -279,8 +248,7 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
                 Positioned.fill(
                   child: CustomPaint(
                     painter: _CustomClockPickerPaint(
-                      stockColor: widget.stockColor ??
-                          Theme.of(context).colorScheme.primary,
+                      stockColor: widget.stockColor ?? Theme.of(context).colorScheme.primary,
                       stokeWidth: stockWidth,
                       time: currentPosition,
                       totalTime: totalPosition,
@@ -292,8 +260,7 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
                 Positioned.fill(child: drawBox()),
 
                 /// --------------------------------------------------------------------------------------- Small Dots
-                for (int i = 0; i < totalPosition; i++)
-                  dot(centerX, centerY, radius, i, false),
+                for (int i = 0; i < totalPosition; i++) dot(centerX, centerY, radius, i, false),
 
                 /// --------------------------------------------------------------------------------------- Big Dot
                 dot(centerX, centerY, radius, currentPosition, true),
@@ -302,15 +269,11 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
                 Positioned.fill(
                   child: GestureDetector(
                     onPanDown: (details) {
-                      double angle = angleCounter(
-                          Size(box.maxWidth, box.maxHeight),
-                          details.localPosition);
+                      double angle = angleCounter(Size(box.maxWidth, box.maxHeight), details.localPosition);
                       changeTime(angle);
                     },
                     onPanUpdate: (details) {
-                      double angle = angleCounter(
-                          Size(box.maxWidth, box.maxHeight),
-                          details.localPosition);
+                      double angle = angleCounter(Size(box.maxWidth, box.maxHeight), details.localPosition);
                       changeTime(angle);
                     },
                     child: Container(
@@ -337,10 +300,7 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
                 drawBox(
                   child: AspectRatio(
                     aspectRatio: 1,
-                    child: widget.childBuilder == null
-                        ? const SizedBox()
-                        : widget
-                            .childBuilder!(currentPosition + widget.minTime),
+                    child: widget.childBuilder == null ? const SizedBox() : widget.childBuilder!(currentPosition + widget.minTime),
                   ),
                 ),
               ],
@@ -370,8 +330,7 @@ class _CustomClockPickerPaint extends CustomPainter {
     final centerX = size.width / 2;
     final centerY = size.height / 2;
     final center = Offset(centerX, centerY);
-    final radius = min((size.height / 2) - (stokeWidth / 2),
-        (size.width / 2) - (stokeWidth / 2));
+    final radius = min((size.height / 2) - (stokeWidth / 2), (size.width / 2) - (stokeWidth / 2));
 
     //! -------------------------------------------------------------------------------------------- Line
     var arcPaint = Paint()
@@ -390,24 +349,14 @@ class _CustomClockPickerPaint extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-Offset _countOffset(
-    {required double centerX,
-    required double centerY,
-    required double radius,
-    required int currentPosition,
-    required int totalPosition}) {
-  double x = centerX +
-      radius * cos((270 + (360 * currentPosition / totalPosition)) * pi / 180);
-  double y = centerY +
-      radius * sin((270 + (360 * currentPosition / totalPosition)) * pi / 180);
+Offset _countOffset({required double centerX, required double centerY, required double radius, required int currentPosition, required int totalPosition}) {
+  double x = centerX + radius * cos((270 + (360 * currentPosition / totalPosition)) * pi / 180);
+  double y = centerY + radius * sin((270 + (360 * currentPosition / totalPosition)) * pi / 180);
   return Offset(x, y);
 }
 
 //! ------------------------------------------------------------------------------------------------ Colors
-Color blendColors(
-    {required Color baseColor,
-    required Color blendColor,
-    required BlendModeType blendMode}) {
+Color blendColors({required Color baseColor, required Color blendColor, required BlendModeType blendMode}) {
   double normalize(int value) => value / 255.0;
 
   int clamp(double value) => value.clamp(0, 255).toInt();
@@ -427,18 +376,9 @@ Color blendColors(
     case BlendModeType.screen:
       return Color.fromARGB(
         baseColor.alpha,
-        clamp((1 -
-                (1 - normalize(baseColor.red)) *
-                    (1 - normalize(blendColor.red))) *
-            255),
-        clamp((1 -
-                (1 - normalize(baseColor.green)) *
-                    (1 - normalize(blendColor.green))) *
-            255),
-        clamp((1 -
-                (1 - normalize(baseColor.blue)) *
-                    (1 - normalize(blendColor.blue))) *
-            255),
+        clamp((1 - (1 - normalize(baseColor.red)) * (1 - normalize(blendColor.red))) * 255),
+        clamp((1 - (1 - normalize(baseColor.green)) * (1 - normalize(blendColor.green))) * 255),
+        clamp((1 - (1 - normalize(baseColor.blue)) * (1 - normalize(blendColor.blue))) * 255),
       );
 
     default:

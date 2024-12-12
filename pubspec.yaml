@@ -4,29 +4,27 @@ name: time_range_selector_widget
 description: |
   Quickly select the hourly time range by dragging the circular bar.
 
-version: 2.0.2
+version: 2.0.3
 repository: https://github.com/SHAJED99/time_range_selector_widget
 license: BSD 3-Clause
 
 screenshots:
-  - description: 'Example of time_range_selector_widget'
+  - description: "Example of time_range_selector_widget"
     path: screenshots/1.gif
-
 
 topics:
   - time-range
   - time
   - time-selector
 
-
 environment:
-  sdk: '>=2.12.0 <4.0.0'
+  sdk: ">=2.12.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_inset_box_shadow: ^1.0.8
+  flutter_inset_shadow: ^2.0.3
 
 dev_dependencies:
   flutter_test:
