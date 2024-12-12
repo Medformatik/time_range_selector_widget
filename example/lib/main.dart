@@ -59,8 +59,8 @@ class _MyAppState extends State<MyApp> {
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
                     colors: [
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.1)
+                      Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
+                      Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                     ],
                   ),
                 ),
@@ -97,14 +97,8 @@ class _MyAppState extends State<MyApp> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.05),
-                            Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.1)
+                            Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
+                            Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                           ],
                         ),
                       ),
@@ -114,9 +108,11 @@ class _MyAppState extends State<MyApp> {
                           tab = i;
                           _tabDataSet(i == 0);
                           controller
-                              .animateToPage(tab,
-                                  duration: const Duration(milliseconds: 100),
-                                  curve: Curves.linear)
+                              .animateToPage(
+                                tab,
+                                duration: const Duration(milliseconds: 100),
+                                curve: Curves.linear,
+                              )
                               .whenComplete(() => setState(() {}));
                         },
                         children: [
@@ -127,25 +123,15 @@ class _MyAppState extends State<MyApp> {
                               shape: BoxShape.circle,
                               gradient: LinearGradient(
                                 colors: [
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.05),
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.1)
+                                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
+                                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                                 ],
                               ),
                             ),
-                            child: Text(i.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary)),
+                            child: Text(
+                              i.toString(),
+                              style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).colorScheme.primary),
+                            ),
                           ),
                           Container(
                             alignment: Alignment.center,
@@ -156,25 +142,15 @@ class _MyAppState extends State<MyApp> {
                                 begin: Alignment.centerRight,
                                 end: Alignment.centerLeft,
                                 colors: [
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.05),
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.1)
+                                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
+                                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                                 ],
                               ),
                             ),
-                            child: Text(i.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary)),
+                            child: Text(
+                              i.toString(),
+                              style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).colorScheme.primary),
+                            ),
                           ),
                         ],
                       ),
@@ -185,17 +161,17 @@ class _MyAppState extends State<MyApp> {
                   // minTime: minTime,
                   // maxTime: maxTime,
                   // depth: 5,
-                  // shadowColorDark: Theme.of(context).shadowColor.withOpacity(0.5),
+                  // shadowColorDark: Theme.of(context).shadowColor.withValues(alpha: 0.5),
                   // shadowColorLight: Theme.of(context).canvasColor,
-                  // shadowColorDark: Theme.of(context).primaryColor.withOpacity(0.5),
+                  // shadowColorDark: Theme.of(context).primaryColor.withValues(alpha: 0.5),
                   // shadowColorLight: Theme.of(context).canvasColor,
                   // childBuilder: (currentTime) {
                   //   return Container(
                   //     decoration: BoxDecoration(
                   //       gradient: LinearGradient(
                   //         colors: [
-                  //           Colors.black.withOpacity(0.05),
-                  //           Colors.black.withOpacity(0.1)
+                  //           Colors.black.withValues(alpha: 0.05),
+                  //           Colors.black.withValues(alpha: 0.1)
                   //           // Colors.amber,
                   //           // Colors.amberAccent,
                   //         ],

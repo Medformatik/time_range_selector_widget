@@ -73,7 +73,7 @@ class TimeRangeSelectorWidget extends StatefulWidget {
   final Color? shadowColorDark;
 
   /// Depth shadow Color
-  /// Default: blendColors(baseColor: Colors.transparent, blendColor: Colors.white, blendMode: BlendModeType.screen).withOpacity(0.7)
+  /// Default: blendColors(baseColor: Colors.transparent, blendColor: Colors.white, blendMode: BlendModeType.screen).withValues(alpha: 0.7)
   final Color? shadowColorLight;
 
   /// Stock / Progress bar color
@@ -143,13 +143,13 @@ class _TimeRangeSelectorWidgetState extends State<TimeRangeSelectorWidget> {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: widget.shadowColorLight ?? blendColors(baseColor: Colors.transparent, blendColor: Colors.white, blendMode: BlendModeType.screen).withOpacity(0.5),
+            color: widget.shadowColorLight ?? blendColors(baseColor: Colors.transparent, blendColor: Colors.white, blendMode: BlendModeType.screen).withValues(alpha: 0.5),
             blurRadius: s,
             offset: Offset(-s, -s),
             inset: isHandle != null ? !isHandle : child == null, // This line should be comment if you don't want to use "flutter_inset_shadow" package
           ),
           BoxShadow(
-            color: widget.shadowColorDark ?? blendColors(baseColor: Colors.transparent, blendColor: Colors.black, blendMode: BlendModeType.multiply).withOpacity(0.5),
+            color: widget.shadowColorDark ?? blendColors(baseColor: Colors.transparent, blendColor: Colors.black, blendMode: BlendModeType.multiply).withValues(alpha: 0.5),
             blurRadius: s,
             offset: Offset(s, s),
             inset: isHandle != null ? !isHandle : child == null, // This line should be comment if you don't want to use "flutter_inset_shadow" package
@@ -357,28 +357,27 @@ Offset _countOffset({required double centerX, required double centerY, required 
 
 //! ------------------------------------------------------------------------------------------------ Colors
 Color blendColors({required Color baseColor, required Color blendColor, required BlendModeType blendMode}) {
-  double normalize(int value) => value / 255.0;
-
-  int clamp(double value) => value.clamp(0, 255).toInt();
+  double normalize(double value) => value / 255.0;
+  double clamp(double value) => value.clamp(0, 255);
 
   switch (blendMode) {
     case BlendModeType.normal:
       return baseColor;
 
     case BlendModeType.multiply:
-      return Color.fromARGB(
-        baseColor.alpha,
-        clamp(normalize(baseColor.red) * normalize(blendColor.red) * 255),
-        clamp(normalize(baseColor.green) * normalize(blendColor.green) * 255),
-        clamp(normalize(baseColor.blue) * normalize(blendColor.blue) * 255),
+      return Color.from(
+        alpha: baseColor.a,
+        red: clamp(normalize(baseColor.r) * normalize(blendColor.r) * 255),
+        green: clamp(normalize(baseColor.g) * normalize(blendColor.g) * 255),
+        blue: clamp(normalize(baseColor.b) * normalize(blendColor.b) * 255),
       );
 
     case BlendModeType.screen:
-      return Color.fromARGB(
-        baseColor.alpha,
-        clamp((1 - (1 - normalize(baseColor.red)) * (1 - normalize(blendColor.red))) * 255),
-        clamp((1 - (1 - normalize(baseColor.green)) * (1 - normalize(blendColor.green))) * 255),
-        clamp((1 - (1 - normalize(baseColor.blue)) * (1 - normalize(blendColor.blue))) * 255),
+      return Color.from(
+        alpha: baseColor.a,
+        red: clamp((1 - (1 - normalize(baseColor.r)) * (1 - normalize(blendColor.r))) * 255),
+        green: clamp((1 - (1 - normalize(baseColor.g)) * (1 - normalize(blendColor.g))) * 255),
+        blue: clamp((1 - (1 - normalize(baseColor.b)) * (1 - normalize(blendColor.b))) * 255),
       );
 
     default:
